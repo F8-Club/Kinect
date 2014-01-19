@@ -170,9 +170,9 @@ public class Freenect implements Library {
 		protected NativeDevice (Pointer ptr, int index) {
 			super(ptr);
 			this.index = index;
-			this.rawTiltState = freenect_get_tilt_state(this);
+			// this.rawTiltState = freenect_get_tilt_state(this);
 			this.accel = new double[3];
-			refreshTiltState();
+			// refreshTiltState();
 			setVideoFormat(VideoFormat.RGB);
 			setDepthFormat(DepthFormat.D10BIT);
 		}
@@ -237,17 +237,22 @@ public class Freenect implements Library {
 			return freenect_set_led(this, status.intValue());
 		}
 
+//		@Override
+//		public void refreshTiltState () {
+//			freenect_update_tilt_state(this);
+//			this.rawTiltState = freenect_get_tilt_state(this);
+//			this.tiltAngle = freenect_get_tilt_degs(rawTiltState);
+//			this.tiltStatus = TiltStatus.fromInt(freenect_get_tilt_status(rawTiltState));
+//			freenect_get_mks_accel(rawTiltState, accelX, accelY, accelZ);
+//			this.accel[0] = accelX.get(0);
+//			this.accel[1] = accelY.get(0);
+//			this.accel[2] = accelZ.get(0);
+//		}
+//
+
 		@Override
-		public void refreshTiltState () {
-			freenect_update_tilt_state(this);
-			this.rawTiltState = freenect_get_tilt_state(this);
-			this.tiltAngle = freenect_get_tilt_degs(rawTiltState);
-			this.tiltStatus = TiltStatus.fromInt(freenect_get_tilt_status(rawTiltState));
-			freenect_get_mks_accel(rawTiltState, accelX, accelY, accelZ);
-			this.accel[0] = accelX.get(0);
-			this.accel[1] = accelY.get(0);
-			this.accel[2] = accelZ.get(0);
-		}
+                public void refreshTiltState() {
+                }
 
 		@Override
 		public double getTiltAngle () {
@@ -388,7 +393,7 @@ public class Freenect implements Library {
 
 	private static native TiltState freenect_get_tilt_state (NativeDevice dev);
 
-	private static native byte freenect_get_tilt_status (TiltState tiltState);
+//	private static native byte freenect_get_tilt_status (TiltState tiltState);
 
 	private static native double freenect_get_tilt_degs (TiltState tiltState);
 
@@ -401,21 +406,21 @@ public class Freenect implements Library {
 
 	private static native int freenect_select_subdevices (NativeContext ctx, int flag);
 
-	private static native int freenect_get_video_mode_count ();
+//	private static native int freenect_get_video_mode_count ();
 
-	private static native FrameMode.ByValue freenect_get_video_mode (int mode_num);
+//	private static native FrameMode.ByValue freenect_get_video_mode (int mode_num);
 
-	private static native FrameMode.ByValue freenect_get_current_video_mode (NativeDevice dev);
+//	private static native FrameMode.ByValue freenect_get_current_video_mode (NativeDevice dev);
 
 	private static native FrameMode.ByValue freenect_find_video_mode (int res, int fmt);
 
 	private static native int freenect_set_video_mode (NativeDevice dev, FrameMode.ByValue mode);
 
-	private static native int freenect_get_depth_mode_count ();
+//	private static native int freenect_get_depth_mode_count ();
 
-	private static native FrameMode.ByValue freenect_get_depth_mode (int mode_num);
+//	private static native FrameMode.ByValue freenect_get_depth_mode (int mode_num);
 
-	private static native FrameMode.ByValue freenect_get_current_depth_mode (NativeDevice dev);
+//	private static native FrameMode.ByValue freenect_get_current_depth_mode (NativeDevice dev);
 
 	private static native FrameMode.ByValue freenect_find_depth_mode (int res, int fmt);
 
